@@ -20,6 +20,7 @@ public class MainViewController implements ActionListener {
         mainJframe.radioParalelo.addActionListener(this);
         mainJframe.radioSecuencial.addActionListener(this);
         this.miClaseRemota = miClaseRemota;
+        miClaseRemota.setMainJframe(this.mainJframe);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -43,6 +44,7 @@ public class MainViewController implements ActionListener {
                     miClaseRemota.getStart().set(true);
                     try {
                         Respuesta respuesta = miClaseRemota.miMetodo1(numero3);
+                        System.out.println(Arrays.toString(respuesta.parametros));
                         long startTime = System.currentTimeMillis();
                         HashMap<Boolean, String> hashMap = respuesta.getFuncion().apply(respuesta.parametros);
 

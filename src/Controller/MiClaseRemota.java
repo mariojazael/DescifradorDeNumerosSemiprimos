@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemota, Serializable {
     @Serial
     private static final long serialVersionUID = -6044598747301230549L;
-    private MiClaseRemota mir = new MiClaseRemota();
+    MainJframe mainJframe;
     public final AtomicInteger contador = new AtomicInteger();
     public AtomicBoolean start = new AtomicBoolean(false);
     static int prueba = 20000;
@@ -27,6 +27,17 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
     int sliceSize = pruebaFinal / 2;
     public static AtomicInteger limiteInferior = new AtomicInteger(0);
     public AtomicInteger limiteSuperior = new AtomicInteger(prueba);
+    public AtomicBoolean getStart() {
+        return start;
+    }
+
+    public void setStart(AtomicBoolean start) {
+        this.start = start;
+    }
+
+    public AtomicInteger getContador() {
+        return contador;
+    }
     SerializableFunction<Integer [], HashMap<Boolean, String>> function = (a) -> {
         int recorrido = a[1] - a[0];
         int sliceSize = recorrido / 4;
@@ -70,16 +81,12 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         contador.set(0);
     }
 
-    public AtomicBoolean getStart() {
-        return start;
+    public MainJframe getMainJframe() {
+        return mainJframe;
     }
 
-    public void setStart(AtomicBoolean start) {
-        this.start = start;
-    }
-
-    public AtomicInteger getContador() {
-        return contador;
+    public void setMainJframe(MainJframe mainJframe) {
+        this.mainJframe = mainJframe;
     }
 
     public Respuesta miMetodo1(int target) throws RemoteException {
@@ -89,7 +96,7 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
 
         while(!start.get()){}
 
-        Integer [] parametros = {limiteInferior.get(), limiteSuperior.get(), target, contadorEstatico};
+        Integer [] parametros = {limiteInferior.get(), target, target, contadorEstatico};
 
         // limiteInferior.set(limiteInferior.get() + sliceSize);
         // limiteSuperior.set(limiteSuperior.get() + sliceSize);
@@ -110,7 +117,7 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         System.out.println("Elemento encontrado: " + elemento);
     }
 
-    public void pintarGUI(String elemento, MainJframe mainJframe){
+    public void pintarGUI(String elemento){
         SwingUtilities.invokeLater(()-> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + elemento));
     }
 
@@ -120,7 +127,7 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         try {
             Registry registry = LocateRegistry.createRegistry(Integer.parseInt(args));
 
-            mir = new MiClaseRemota();
+            MiClaseRemota mir = new MiClaseRemota();
 
             java.rmi.Naming.rebind("//" +
                     java.net.InetAddress.getLocalHost().getHostAddress() +

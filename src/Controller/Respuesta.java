@@ -34,4 +34,12 @@ public class Respuesta implements Serializable {
     public void setFuncion(SerializableFunction<Integer[], HashMap<Boolean, String>> funcion) {
         this.funcion = funcion;
     }
+
+    public MainJframe getMainJframe() {
+        return mainJframe;
+    }
+
+    public void setMainJframe(MainJframe mainJframe) {
+        this.mainJframe = mainJframe;
+    }
 }
