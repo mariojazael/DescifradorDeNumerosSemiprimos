@@ -26,11 +26,11 @@ public class MiClienteRMI {
             long endTime = System.currentTimeMillis();
             if(hashMap.containsKey(true)) {
                 hashMap.put(true, hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
-                mir.pintarGUI(hashMap.get(true), respuesta.mainJframe);
+                mir.pintarGUI(hashMap.get(true));
             }
             else {
                 hashMap.put(false, hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
-                mir.pintarGUI(hashMap.get(true), respuesta.mainJframe);
+                mir.pintarGUI(hashMap.get(false));
             }
 
         } catch (Exception e) {

@@ -40,8 +40,7 @@ public class MainViewController implements ActionListener {
             else if(mainJframe.radioParalelo.isSelected()){
                 int numero3 = Integer.parseInt(mainJframe.txtFldIngresaNumero.getText());
                 System.out.println(miClaseRemota.getContador().get());
-                if(miClaseRemota.getContador().get() > -1){
-                    miClaseRemota.getStart().set(true);
+                if(true){
                     try {
                         Respuesta respuesta = miClaseRemota.miMetodo1(numero3);
                         System.out.println(Arrays.toString(respuesta.parametros));

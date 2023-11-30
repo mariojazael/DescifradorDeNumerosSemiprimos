@@ -39,7 +39,7 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         return contador;
     }
     SerializableFunction<Integer [], HashMap<Boolean, String>> function = (a) -> {
-        int recorrido = a[1] - a[0];
+        int recorrido = (a[1] - a[0]) / 4;
         int sliceSize = recorrido / 4;
         AtomicBoolean isSemiprime = new AtomicBoolean(false);
         ExecutorService executorService = Executors.newFixedThreadPool(4);
@@ -47,10 +47,11 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         for(int k = 0; k < 4; k++){
             int finalK = k;
             executorService.submit(()->{
-                for(int i = (a[0] + finalK * sliceSize) + a[3]; i < (a[0] + finalK * sliceSize) + sliceSize; i = i + 2){
+                for(int i = (a[0] + finalK * sliceSize) + a[3]; i < (a[0] + finalK * sliceSize) + sliceSize; i = i + 3){
                     if(isPrime(i)) {
                         for(int j = 0; j < a[1]; j++){
                             if(isSemiprime.get()) break;
+                            if(i * j > a[2]) break;
                             if(isPrime(j)){
                                 if(i * j == a[2] && i > 1 && j > 1) {
                                     isSemiprime.set(true);
@@ -94,14 +95,14 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         int contadorEstatico = contador.incrementAndGet();
         System.out.println(contador.get());
 
-        while(!start.get()){}
+        while(contador.get() < 3){}
 
         Integer [] parametros = {limiteInferior.get(), target, target, contadorEstatico};
 
         // limiteInferior.set(limiteInferior.get() + sliceSize);
         // limiteSuperior.set(limiteSuperior.get() + sliceSize);
 
-        contador.set(0);
+        if(contadorEstatico == 3) contador.set(0);
         return new Respuesta(parametros, function);
     }
 
