@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainViewController implements ActionListener {
     private final MainJframe mainJframe;
@@ -41,6 +42,8 @@ public class MainViewController implements ActionListener {
                 miClaseRemota.setTarget(numero3);
                 System.out.println(miClaseRemota.getContador().get());
                 try {
+                    AtomicInteger contadorAtomico = miClaseRemota.getContador();
+                    int contador = contadorAtomico.intValue() + 1;
                     Respuesta respuesta = miClaseRemota.miMetodo1();
                     System.out.println(Arrays.toString(respuesta.parametros));
                     long startTime = System.currentTimeMillis();
@@ -49,11 +52,11 @@ public class MainViewController implements ActionListener {
                     long endTime = System.currentTimeMillis();
 
                     if (hashMap.containsKey(true)) {
-                        hashMap.put(true, hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
-                        SwingUtilities.invokeLater(() -> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + hashMap.get(true)));
+                        hashMap.put(true, " Numero; " + hashMap.get(true) + ", " + (endTime - startTime) + " milisegundos");
+                        SwingUtilities.invokeLater(() -> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\nMaquina N." + contador + " " + hashMap.get(true)));
                     } else {
-                        hashMap.put(false, hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
-                        SwingUtilities.invokeLater(() -> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + hashMap.get(false)));
+                        hashMap.put(false, " Numero: " + respuesta.getParametros()[2] + hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
+                        SwingUtilities.invokeLater(() -> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + "Maquina N." + contador + hashMap.get(false)));
                     }
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);

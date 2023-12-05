@@ -1,5 +1,6 @@
 package Controller;
 
+import View.ClientSemiPrimeGUI;
 import View.MainJframe;
 
 import java.rmi.Naming;
@@ -12,9 +13,9 @@ public class MiClienteRMI {
                             args[0] + ":" + args[1] + "/PruebaRMI");
 
 
-            MainJframe mainJframe = new MainJframe();
-            MainViewController mainViewController = new MainViewController(mainJframe, (MiClaseRemota) mir);
-            mainJframe.setVisible(true);
+            ClientSemiPrimeGUI clientSemiPrimeGUI = new ClientSemiPrimeGUI();
+            ClienteGUIController clienteGUIController = new ClienteGUIController(clientSemiPrimeGUI, mir);
+            clientSemiPrimeGUI.setVisible(true);
 
 // Imprimimos miMetodo1() tantas veces como devuelva miMetodo2()
 
