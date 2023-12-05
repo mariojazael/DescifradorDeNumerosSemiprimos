@@ -35,10 +35,6 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
     public void setStart(AtomicBoolean start) {
         this.start = start;
     }
-
-    public AtomicInteger getContador() {
-        return contador;
-    }
     SerializableFunction<Integer [], HashMap<Boolean, String>> function = (a) -> {
         int recorrido = (a[1] - a[0]) / 4;
         int sliceSize = recorrido / 4;
@@ -113,6 +109,11 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
 
         if(contadorEstatico == 3) contador.set(0);
         return new Respuesta(parametros, function);
+    }
+
+    @Override
+    public AtomicInteger getContador() {
+        return contador;
     }
 
     public static boolean isPrime(int i){
