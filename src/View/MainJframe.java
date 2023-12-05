@@ -1,4 +1,6 @@
-package View;/*
+package View;
+
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -98,8 +100,8 @@ public class MainJframe extends JFrame {
                                 .addGap(148, 148, 148)
                                 .addComponent(btnCalcular, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)))
                         .addGap(42, 42, 42)
-                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(635, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 741, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -178,12 +180,11 @@ public class MainJframe extends JFrame {
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private JLabel lblIngresaNumero;
-    public JRadioButton radioConcurrente;
-    public JRadioButton radioParalelo;
-    public JRadioButton radioSecuencial;
+    public static JRadioButton radioConcurrente;
+    public static JRadioButton radioParalelo;
+    public static JRadioButton radioSecuencial;
     public JTextArea txtAreaResultados;
     public JTextField txtFldIngresaNumero;
     public ButtonGroup buttonGroup = new ButtonGroup();
-
     // End of variables declaration//GEN-END:variables
 }

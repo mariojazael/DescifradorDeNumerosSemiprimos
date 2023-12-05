@@ -3,8 +3,6 @@ package Controller;
 import View.MainJframe;
 
 import java.rmi.Naming;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class MiClienteRMI {
     public static void main(String[] args) {

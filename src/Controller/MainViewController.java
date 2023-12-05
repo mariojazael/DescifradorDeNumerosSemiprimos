@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainViewController implements ActionListener {
     private final MainJframe mainJframe;
@@ -39,27 +38,25 @@ public class MainViewController implements ActionListener {
             }
             else if(mainJframe.radioParalelo.isSelected()){
                 int numero3 = Integer.parseInt(mainJframe.txtFldIngresaNumero.getText());
+                miClaseRemota.setTarget(numero3);
                 System.out.println(miClaseRemota.getContador().get());
-                if(true){
-                    try {
-                        Respuesta respuesta = miClaseRemota.miMetodo1(numero3);
-                        System.out.println(Arrays.toString(respuesta.parametros));
-                        long startTime = System.currentTimeMillis();
-                        HashMap<Boolean, String> hashMap = respuesta.getFuncion().apply(respuesta.parametros);
+                try {
+                    Respuesta respuesta = miClaseRemota.miMetodo1();
+                    System.out.println(Arrays.toString(respuesta.parametros));
+                    long startTime = System.currentTimeMillis();
+                    HashMap<Boolean, String> hashMap = respuesta.getFuncion().apply(respuesta.parametros);
 
-                        long endTime = System.currentTimeMillis();
+                    long endTime = System.currentTimeMillis();
 
-                        if(hashMap.containsKey(true)) {
-                            hashMap.put(true, hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
-                            SwingUtilities.invokeLater(()-> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + hashMap.get(true)));
-                        }
-                        else {
-                            hashMap.put(false, hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
-                            SwingUtilities.invokeLater(()-> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + hashMap.get(false)));
-                        }
-                    } catch (RemoteException ex) {
-                        throw new RuntimeException(ex);
+                    if (hashMap.containsKey(true)) {
+                        hashMap.put(true, hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
+                        SwingUtilities.invokeLater(() -> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + hashMap.get(true)));
+                    } else {
+                        hashMap.put(false, hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
+                        SwingUtilities.invokeLater(() -> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n" + hashMap.get(false)));
                     }
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         }

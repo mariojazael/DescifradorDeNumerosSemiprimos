@@ -20,6 +20,7 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
     @Serial
     private static final long serialVersionUID = -6044598747301230549L;
     MainJframe mainJframe;
+    public int target = 0;
     public final AtomicInteger contador = new AtomicInteger();
     public AtomicBoolean start = new AtomicBoolean(false);
     static int prueba = 20000;
@@ -82,6 +83,14 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         contador.set(0);
     }
 
+    public int getTarget() {
+        return target;
+    }
+
+    public void setTarget(int target) {
+        this.target = target;
+    }
+
     public MainJframe getMainJframe() {
         return mainJframe;
     }
@@ -90,14 +99,14 @@ public class MiClaseRemota extends UnicastRemoteObject implements MiInterfazRemo
         this.mainJframe = mainJframe;
     }
 
-    public Respuesta miMetodo1(int target) throws RemoteException {
+    public Respuesta miMetodo1() throws RemoteException {
 // Aquí ponemos el código que queramos
         int contadorEstatico = contador.incrementAndGet();
         System.out.println(contador.get());
 
         while(contador.get() < 3){}
 
-        Integer [] parametros = {limiteInferior.get(), target, target, contadorEstatico};
+        Integer [] parametros = {limiteInferior.get(), this.target, this.target, contadorEstatico};
 
         // limiteInferior.set(limiteInferior.get() + sliceSize);
         // limiteSuperior.set(limiteSuperior.get() + sliceSize);
