@@ -23,9 +23,9 @@ public class ClienteGUIController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == clientSemiPrimeGUI.btnObtener){
             try {
-                Respuesta respuesta = miInterfazRemota.miMetodo1();
                 AtomicInteger contadorAtomico = miInterfazRemota.getContador();
                 int contador = contadorAtomico.intValue() + 1;
+                Respuesta respuesta = miInterfazRemota.miMetodo1();
                 long startTime = System.currentTimeMillis();
 
                 HashMap<Boolean, String> hashMap = respuesta.getFuncion().apply(respuesta.parametros);
@@ -33,14 +33,14 @@ public class ClienteGUIController implements ActionListener {
                 long endTime = System.currentTimeMillis();
 
                 if(hashMap.containsKey(true)){
-                    hashMap.put(true, hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
-                    miInterfazRemota.pintarGUI("Maquina N.: " + contador + " " + hashMap.get(true));
+                    hashMap.put(true, "Numero: " + hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
+                    miInterfazRemota.pintarGUI("Maquina N.: " + contador + ", " + hashMap.get(true));
                     clientSemiPrimeGUI.txtAreaLog.setText(clientSemiPrimeGUI.txtAreaLog.getText() + "\n" + hashMap.get(true));
                 }
                 else {
                     hashMap.put(false, hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
-                    miInterfazRemota.pintarGUI("Maquina N.: " + contador + " " + hashMap.get(false));
-                    clientSemiPrimeGUI.txtAreaLog.setText("Numero: " + respuesta.getParametros()[2] + hashMap.get(false));
+                    miInterfazRemota.pintarGUI("Maquina N.: " + contador + ", " + hashMap.get(false));
+                    clientSemiPrimeGUI.txtAreaLog.setText(clientSemiPrimeGUI.txtAreaLog.getText() + "\nNumero: " + respuesta.getParametros()[2] + hashMap.get(false));
                 }
             } catch (RemoteException ex) {
                 throw new RuntimeException(ex);
