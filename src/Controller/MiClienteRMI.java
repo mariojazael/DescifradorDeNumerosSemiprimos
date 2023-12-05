@@ -1,5 +1,7 @@
 package Controller;
 
+import View.MainJframe;
+
 import java.rmi.Naming;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,11 +13,16 @@ public class MiClienteRMI {
                     (MiInterfazRemota)Naming.lookup("//" +
                             args[0] + ":" + args[1] + "/PruebaRMI");
 
+
+            MainJframe mainJframe = new MainJframe();
+            MainViewController mainViewController = new MainViewController(mainJframe, (MiClaseRemota) mir);
+            mainJframe.setVisible(true);
+
 // Imprimimos miMetodo1() tantas veces como devuelva miMetodo2()
 
             // mir.miMetodo2(" Mario");
 
-            Respuesta respuesta = mir.miMetodo1(Integer.parseInt(args[2]));
+            /* Respuesta respuesta = mir.miMetodo1(Integer.parseInt(args[2]));
 
             long startTime = System.currentTimeMillis();
 
@@ -31,7 +38,7 @@ public class MiClienteRMI {
             else {
                 hashMap.put(false, hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
                 mir.pintarGUI(hashMap.get(false));
-            }
+            }*/
 
         } catch (Exception e) {
             e.printStackTrace();
