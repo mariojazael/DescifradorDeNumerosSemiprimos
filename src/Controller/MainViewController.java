@@ -41,6 +41,7 @@ public class MainViewController implements ActionListener {
                 int numero3 = Integer.parseInt(mainJframe.txtFldIngresaNumero.getText());
                 miClaseRemota.setTarget(numero3);
                 System.out.println(miClaseRemota.getContador().get());
+                mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\n");
                 try {
                     AtomicInteger contadorAtomico = miClaseRemota.getContador();
                     int contador = contadorAtomico.intValue() + 1;

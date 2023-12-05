@@ -39,7 +39,7 @@ public class ClienteGUIController implements ActionListener {
                 }
                 else {
                     hashMap.put(false, hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");
-                    miInterfazRemota.pintarGUI("Maquina N.: " + contador + ", " + hashMap.get(false));
+                    miInterfazRemota.pintarGUI("Numero: " + respuesta.getParametros()[2] + "Maquina N.: " + contador + ", " + hashMap.get(false));
                     clientSemiPrimeGUI.txtAreaLog.setText(clientSemiPrimeGUI.txtAreaLog.getText() + "\nNumero: " + respuesta.getParametros()[2] + hashMap.get(false));
                 }
             } catch (RemoteException ex) {
