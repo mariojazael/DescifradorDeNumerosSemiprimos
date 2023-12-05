@@ -52,7 +52,7 @@ public class MainViewController implements ActionListener {
                     long endTime = System.currentTimeMillis();
 
                     if (hashMap.containsKey(true)) {
-                        hashMap.put(true, " Numero; " + hashMap.get(true) + ", " + (endTime - startTime) + " milisegundos");
+                        hashMap.put(true,"Numero: " + respuesta.getParametros()[2] +  ", factores primos: " + hashMap.get(true) + ", " + (endTime - startTime) + " milisegundos");
                         SwingUtilities.invokeLater(() -> mainJframe.txtAreaResultados.setText(mainJframe.txtAreaResultados.getText() + "\nMaquina N." + contador + " " + hashMap.get(true)));
                     } else {
                         hashMap.put(false, " Numero: " + respuesta.getParametros()[2] + hashMap.get(false) + " " + (endTime - startTime) + " milisegundos");

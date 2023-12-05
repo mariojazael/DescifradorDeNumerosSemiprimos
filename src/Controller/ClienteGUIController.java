@@ -33,7 +33,7 @@ public class ClienteGUIController implements ActionListener {
                 long endTime = System.currentTimeMillis();
 
                 if(hashMap.containsKey(true)){
-                    hashMap.put(true, "Numero: " + hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
+                    hashMap.put(true,"Numero: " + respuesta.getParametros()[2] + ", Factores primos: " + hashMap.get(true) + " " + (endTime - startTime) + " milisegundos");
                     miInterfazRemota.pintarGUI("Maquina N.: " + contador + ", " + hashMap.get(true));
                     clientSemiPrimeGUI.txtAreaLog.setText(clientSemiPrimeGUI.txtAreaLog.getText() + "\n" + hashMap.get(true));
                 }
